@@ -9,9 +9,14 @@ import SwiftUI
 
 struct LoadingView: View {
     var body: some View {
-        ProgressView()
-            .scaleEffect(x: 2, y: 2, anchor: .center)
-            .foregroundStyle(Color.brandPrimary)
+        ZStack {
+            Color(.systemBackground)
+                .ignoresSafeArea()
+            
+            ProgressView()
+                .scaleEffect(x: 2, y: 2, anchor: .center)
+                .foregroundStyle(Color.brandPrimary)
+        }
     }
 }
 

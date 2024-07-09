@@ -42,7 +42,7 @@ final class AccountViewModel: ObservableObject {
     }
     
     func retrieveUser() {
-        guard let userData = userData else {
+        guard let userData else {
             return
         }
         

@@ -23,7 +23,6 @@ struct ApptizerListView: View {
                                         viewModel.selectedApptizer = apptizer
                                     }
                                 }
-                            Divider()
                         }
                         .listRowSeparator(.hidden)
                     }
@@ -31,7 +30,7 @@ struct ApptizerListView: View {
                 .listStyle(.plain)
                 .navigationTitle("Apptizers")
             }
-            .onAppear {
+            .task {
                 viewModel.getApptizers()
             }
             .blur(radius: viewModel.isShowingDetail ? 20 : 0)

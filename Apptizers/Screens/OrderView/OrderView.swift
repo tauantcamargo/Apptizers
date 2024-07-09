@@ -30,7 +30,6 @@ struct OrderView: View {
                                         }
                                         .tint(.red)
                                     }
-                                Divider()
                             }
                             .listRowSeparator(.hidden)
                         }
@@ -64,4 +63,5 @@ struct OrderView: View {
 
 #Preview {
     OrderView()
+        .environment(Order())
 }

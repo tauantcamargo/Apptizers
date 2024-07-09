@@ -15,25 +15,27 @@ final class ApptizerListViewModel: ObservableObject {
     @Published var selectedApptizer: Apptizer?
     
     func getApptizers() {
-        self.isLoading = true
-        NetworkManager.shared.getApptizers { result in
-            DispatchQueue.main.async {
-                self.isLoading = false
-                switch result {
-                case .success(let apptizers):
-                    self.apptizers = apptizers
-                case .failure(let error):
-                    switch error {
+        isLoading = true
+       
+        Task {
+            do {
+                apptizers = try await NetworkManager.shared.getApptizers()
+                isLoading = false
+            } catch {
+                if let apError = error as? APError {
+                    switch apError {
                     case .invalidURL:
-                        self.alertItem = AlertContext.invalidURL
+                        alertItem = AlertContext.invalidURL
                     case .invalidResponse:
-                        self.alertItem = AlertContext.invalidResponse
+                        alertItem = AlertContext.invalidResponse
                     case .invalidData:
-                        self.alertItem = AlertContext.invalidData
+                        alertItem = AlertContext.invalidData
                     case .unableToComplete:
-                        self.alertItem = AlertContext.unableToComplete
+                        alertItem = AlertContext.unableToComplete
                     }
                 }
+                alertItem = AlertContext.invalidResponse
+                isLoading = false
             }
         }
     }

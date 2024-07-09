@@ -8,31 +8,25 @@
 import SwiftUI
 
 struct ApptizerTabView: View {
+    @EnvironmentObject var order: Order
+    
     var body: some View {
         TabView {
             ApptizerListView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "house")
-                        Text("Home")
-                    }
+                    Label("Home", systemImage: "house")
                 }
             
             AccountView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "person")
-                        Text("Home")
-                    }
+                    Label("Account", systemImage: "person")
                 }
             
             OrderView()
                 .tabItem {
-                    VStack {
-                        Image(systemName: "bag")
-                        Text("Home")
-                    }
+                    Label("Order", systemImage: "bag")
                 }
+                .badge(order.items.count)
         }
         .tint(.brandPrimary)
     }
@@ -40,4 +34,5 @@ struct ApptizerTabView: View {
 
 #Preview {
     ApptizerTabView()
+        .environment(Order())
 }
